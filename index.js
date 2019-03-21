@@ -1,7 +1,8 @@
 const cheerio = require("cheerio");
 const jsonfile = require("jsonfile");
-const baseUrl = "https://www.valor.com.br/busca/fundos%2Bde%2Bpens%25C3%25A3o";
 const puppeteer = require("puppeteer");
+
+const baseUrl = "https://www.valor.com.br/busca/fundos%2Bde%2Bpens%25C3%25A3o";
 
 async function fetchInnerHtml(url) {
   try {
@@ -25,6 +26,8 @@ async function fetchResultSetItems(innerHTML) {
       var href = $(h2)
         .children()
         .attr("href");
+      title = title.replace(/[\n\t]+/g, "");
+      console.log(title);
       items.push([{ title: title, href: href }]);
     });
     return items;
@@ -36,7 +39,10 @@ async function fetchResultSetItems(innerHTML) {
 async function saveDataInJson(data) {
   try {
     var date = new Date();
-    await jsonfile.writeFile(`./${date.getTime()}_output.json`, data);
+    await jsonfile.writeFile(
+      `./results/valor/valor_economico_${date.getTime()}_.json`,
+      data
+    );
   } catch (error) {
     throw error;
   }
