@@ -1,5 +1,5 @@
 const cheerio = require("cheerio");
-var jsonfile = require("jsonfile");
+const jsonfile = require("jsonfile");
 const baseUrl = "https://www.valor.com.br/busca/fundos%2Bde%2Bpens%25C3%25A3o";
 const puppeteer = require("puppeteer");
 
